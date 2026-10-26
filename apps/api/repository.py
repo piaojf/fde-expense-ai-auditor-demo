@@ -168,6 +168,8 @@ class MockClaimRepository:
     def write_erp(self, claim_id: str, status: str, key: str = "legacy",
                   operation: str = "write_decision"):
         with self._lock, self._db:
+            if not self._db.in_transaction:
+                self._db.execute("BEGIN IMMEDIATE")
             if hasattr(self, "finance_guard"):
                 self._db.execute("UPDATE claims SET id=id WHERE id=?", (claim_id,))
                 self.finance_guard(claim_id, "erp", effect_key=key, effect_status=status,

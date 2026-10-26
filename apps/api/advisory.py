@@ -258,9 +258,10 @@ class AdvisoryCatalog(HybridCatalog):
         report = self.store.read("ADVISORY", cid + ":" + str(run_id))[1] if run_id else None
         if not report:
             return None
-        row = self.store.enterprise.db.execute(
-            "SELECT stage FROM enterprise_claims WHERE claim_id=?", (cid,)
-        ).fetchone()
+        with self.store.enterprise.lock:
+            row = self.store.enterprise.db.execute(
+                "SELECT stage FROM enterprise_claims WHERE claim_id=?", (cid,)
+            ).fetchone()
         review = self.store.read("MANUAL_ADVISORY", cid + ":" + str(run_id))[1]
         finance = {"APPROVED": "APPROVED", "ERP_SYNC_PENDING": "APPROVED",
                    "REJECTED": "REJECTED", "RETURNED": "RETURNED"}.get(row[0], "PENDING")
