@@ -12,4 +12,11 @@ build
 dist
 apps/web
 node_modules
-
+output
+.public-runtime
+.playwright-cli
+.workbuddy
+.m1-runtime
+*.sqlite*
+*.db
+*.log

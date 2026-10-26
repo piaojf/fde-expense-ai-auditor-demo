@@ -68,11 +68,12 @@ def test_genuine_pdf_docx_scan_extraction(filename, method):
         ("empty.pdf", b""),
         ("image.pdf", Path("tests/fixtures/invoices/scan-invoice.png").read_bytes()),
     ],
+    ids=["html-as-docx", "zip-as-pdf", "corrupt-pdf", "unsupported-doc", "empty", "png-as-pdf"],
 )
 def test_content_validation(name, raw):
     with pytest.raises(APIError) as error:
         parser().parse(raw, name)
-    assert error.value.status == 422
+    assert error.value.status == 422, (error.value.code, repr(error.value.__cause__))
 
 
 def amend_docx(name, content, *, compression=zipfile.ZIP_DEFLATED):

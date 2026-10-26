@@ -8,4 +8,5 @@ formal claim repository/checkpoint or human actions. Separate append-only run/ca
 ```
 
 All current references are SYNTHETIC_RULE_LABEL. Metrics reuse M5A, and Synthetic + Mock
-results do not establish production accuracy. See [M5B-1 design and acceptance](../../docs/m5b-shadow-mode.md).
+results do not establish production accuracy. See the distributed [metrics documentation](../metrics/README.md)
+and [public verification boundaries](../../TESTING.md).

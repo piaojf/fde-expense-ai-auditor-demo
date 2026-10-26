@@ -1,13 +1,15 @@
 /** Actual browser + React + HTTP FastAPI legacy Mock flow; no API interception. */
 import assert from 'node:assert/strict';
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 
 const WEB = process.env.WEB_BASE ?? 'http://127.0.0.1:5198';
 const API = process.env.API_BASE ?? 'http://127.0.0.1:8000';
 const CLAIM = process.env.CLAIM_ID ?? 'CLM-2026-00004';
-const OUT = resolve(process.env.E2E_OUTPUT ?? 'output/playwright/public-mock');
+const OUT = resolve(process.env.E2E_OUTPUT ?? resolve(dirname(fileURLToPath(import.meta.url)),
+  '../../../output/ci/public-e2e'));
 for (const base of [WEB, API]) {
   assert.equal(new URL(base).hostname, '127.0.0.1', 'Synthetic E2E must use loopback');
 }
