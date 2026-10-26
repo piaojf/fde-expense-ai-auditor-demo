@@ -1,0 +1,94 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing vX.Y.Z tag pointing to current main
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.event.inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    name: Validate release tag
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      sha: ${{ steps.tag.outputs.sha }}
+    steps:
+      - name: Check out main and tags
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require an existing version tag at main
+        id: tag
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          test "$GITHUB_REF" = refs/heads/main
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          target=$(git rev-parse --verify "refs/tags/$TAG^{commit}")
+          test "$target" = "$(git rev-parse origin/main)"
+          test "$target" = "$GITHUB_SHA"
+          echo "sha=$target" >> "$GITHUB_OUTPUT"
+
+  verify:
+    name: Verify release source
+    needs: resolve
+    uses: ./.github/workflows/ci.yml
+    with:
+      ref: ${{ needs.resolve.outputs.sha }}
+
+  publish:
+    name: Publish checksummed archives
+    needs: [resolve, verify]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out verified source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ needs.resolve.outputs.sha }}
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Build basic Mock frontend
+        env:
+          VITE_API_BASE: http://127.0.0.1:8000
+          VITE_USE_MOCK_API: 'false'
+          VITE_ENTERPRISE_MODE: 'false'
+          VITE_P4A_ENABLED: 'false'
+          VITE_P4B_ENABLED: 'false'
+        run: |
+          npm ci --prefix apps/web
+          npm run build --prefix apps/web
+      - name: Package tracked source and frontend
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          mkdir -p release
+          git archive --format=tar.gz --prefix="fde-expense-ai-auditor-$TAG/" HEAD > "release/source-$TAG.tar.gz"
+          tar -czf "release/frontend-$TAG.tar.gz" -C apps/web/dist .
+          (cd release && sha256sum ./*.tar.gz > SHA256SUMS)
+      - name: Publish the existing tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          VERIFIED_SHA: ${{ needs.resolve.outputs.sha }}
+        run: |
+          gh release create "$TAG" release/* --verify-tag --target "$VERIFIED_SHA" \
+            --title "Public demo $TAG" --notes-file docs/release-notes.md
