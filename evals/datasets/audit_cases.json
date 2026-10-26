@@ -1,0 +1,19 @@
+[
+  {
+    "case_id": "hotel-over-limit-current-policy",
+    "claim_id": "CLM-2026-001",
+    "expected_policy_version_id": "POL-SZ-2026",
+    "expected_risk": "HIGH",
+    "expected_decision": "REJECT",
+    "notes": "800 > 700; 2025 limit 900 is ineligible"
+  },
+  {
+    "case_id": "hotel-under-limit",
+    "claim_id": "CLM-2026-002",
+    "expected_policy_version_id": "POL-SZ-2026",
+    "expected_risk": "LOW",
+    "expected_decision": "APPROVE",
+    "notes": "Only if all hard gates pass and evidence is complete"
+  }
+]
+

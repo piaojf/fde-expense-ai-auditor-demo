@@ -1,0 +1,12 @@
+{
+  "provenance": "Manually reviewed synthetic cases from 222.docx body, independent of historical golden labels",
+  "semantic_accuracy": "NOT_RUN: real LLM not authorized",
+  "cases": [
+    {"id": "hotel-over-limit", "kind": "HOTEL", "amount": "850.00", "grade": "D", "city_tier": "I", "nights": 1, "expected_limit": "800.00", "expected_rule": "FAIL", "expected_decision": "REJECT", "source": "第五章"},
+    {"id": "flight-extra-night", "kind": "HOTEL", "amount": "680.00", "notes": "航班取消，必须额外多住一晚", "expected_rule": "PASS", "expected_action": "HUMAN_REVIEW", "source": "第十三条、第十六条"},
+    {"id": "verified-full-day-meals", "kind": "ALLOWANCE", "amount": "36.00", "verified": {"full_days": 1, "lunches": 1, "dinners": 1}, "expected_limit": "36.00", "expected_rule": "PASS", "source": "第八章、第二十六条"},
+    {"id": "unverified-meals", "kind": "ALLOWANCE", "amount": "36.00", "notes": "客户提供午餐和晚餐", "verified": {}, "expected_rule": "UNKNOWN", "source": "第八章"},
+    {"id": "missing-attendees", "kind": "ENTERTAINMENT", "amount": "1200.00", "notes": "与客户讨论明年采购合同", "verified": {}, "expected_rule": "UNKNOWN", "expected_action": "REQUEST_EVIDENCE", "source": "第九章"},
+    {"id": "general-four-people", "kind": "ENTERTAINMENT", "amount": "1200.00", "verified": {"participants": 4, "entertainment_category": "GENERAL"}, "expected_limit": "1000.00", "expected_rule": "FAIL", "expected_decision": "REJECT", "source": "第九章"}
+  ]
+}

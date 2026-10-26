@@ -1,0 +1,57 @@
+[
+  {
+    "policy_version_id": "POL-SZ-2024",
+    "policy_key": "CN-TRAVEL-HOTEL",
+    "version": "2024",
+    "legal_entity": "DEMO-CN",
+    "category": "HOTEL",
+    "city": "深圳",
+    "effective_from": "2024-01-01",
+    "effective_to": "2025-01-01",
+    "published_at": "2023-12-01T00:00:00Z",
+    "authoritative_rules": {
+      "hotel_limit_per_night": "600.00",
+      "currency": "CNY"
+    },
+    "source_uri": "mock://policies/POL-SZ-2024",
+    "content": "深圳住宿每晚限额 600.00 元",
+    "content_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  {
+    "policy_version_id": "POL-SZ-2025",
+    "policy_key": "CN-TRAVEL-HOTEL",
+    "version": "2025",
+    "legal_entity": "DEMO-CN",
+    "category": "HOTEL",
+    "city": "深圳",
+    "effective_from": "2025-01-01",
+    "effective_to": "2026-01-01",
+    "published_at": "2024-12-01T00:00:00Z",
+    "authoritative_rules": {
+      "hotel_limit_per_night": "900.00",
+      "currency": "CNY"
+    },
+    "source_uri": "mock://policies/POL-SZ-2025",
+    "content": "深圳住宿每晚限额 900.00 元",
+    "content_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  {
+    "policy_version_id": "POL-SZ-2026",
+    "policy_key": "CN-TRAVEL-HOTEL",
+    "version": "2026",
+    "legal_entity": "DEMO-CN",
+    "category": "HOTEL",
+    "city": "深圳",
+    "effective_from": "2026-01-01",
+    "effective_to": "2027-01-01",
+    "published_at": "2025-12-01T00:00:00Z",
+    "authoritative_rules": {
+      "hotel_limit_per_night": "700.00",
+      "currency": "CNY"
+    },
+    "source_uri": "mock://policies/POL-SZ-2026",
+    "content": "深圳住宿每晚限额 700.00 元",
+    "content_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  }
+]
+

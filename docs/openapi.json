@@ -1,0 +1,1501 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FDE Expense AI Auditor",
+    "description": "M0 read-only mock foundation. Audit operations return 501.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/claims": {
+      "get": {
+        "tags": [
+          "claims"
+        ],
+        "summary": "List Claims",
+        "operationId": "list_claims_claims_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ClaimStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimList"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        }
+      }
+    },
+    "/claims/{claim_id}": {
+      "get": {
+        "tags": [
+          "claims"
+        ],
+        "summary": "Claim Detail",
+        "operationId": "claim_detail_claims__claim_id__get",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Claim Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        }
+      }
+    },
+    "/claims/{claim_id}/audit": {
+      "post": {
+        "tags": [
+          "workflow"
+        ],
+        "summary": "Audit",
+        "operationId": "audit_claims__claim_id__audit_post",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Claim Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuditRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        }
+      }
+    },
+    "/claims/{claim_id}/human-review": {
+      "post": {
+        "tags": [
+          "workflow"
+        ],
+        "summary": "Human Review",
+        "operationId": "human_review_claims__claim_id__human_review_post",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Claim Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HumanReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        }
+      }
+    },
+    "/claims/{claim_id}/resume": {
+      "post": {
+        "tags": [
+          "workflow"
+        ],
+        "summary": "Resume",
+        "operationId": "resume_claims__claim_id__resume_post",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Claim Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResumeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        }
+      }
+    },
+    "/claims/{claim_id}/audit-log": {
+      "get": {
+        "tags": [
+          "audit"
+        ],
+        "summary": "Audit Log",
+        "operationId": "audit_log_claims__claim_id__audit_log_get",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Claim Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditLogResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "501": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Implemented"
+          }
+        }
+      }
+    },
+    "/dashboard/metrics": {
+      "get": {
+        "tags": [
+          "dashboard"
+        ],
+        "summary": "Dashboard",
+        "operationId": "dashboard_dashboard_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardMetrics"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuditEvent": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Event Id"
+          },
+          "claim_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Claim Id"
+          },
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "event_type": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Event Type"
+          },
+          "actor": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Actor"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "claim_id",
+          "run_id",
+          "event_type",
+          "actor",
+          "occurred_at",
+          "payload"
+        ],
+        "title": "AuditEvent"
+      },
+      "AuditLogResponse": {
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Claim Id"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/AuditEvent"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Offset"
+          },
+          "data_source": {
+            "type": "string",
+            "const": "mock",
+            "title": "Data Source",
+            "default": "mock"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "claim_id",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "AuditLogResponse"
+      },
+      "AuditRequest": {
+        "properties": {
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/RunMode",
+            "default": "LIVE"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "idempotency_key"
+        ],
+        "title": "AuditRequest"
+      },
+      "ClaimDetail": {
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Claim Id"
+          },
+          "employee": {
+            "$ref": "#/components/schemas/Employee"
+          },
+          "expense": {
+            "$ref": "#/components/schemas/Expense"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ClaimStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "decision_result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecisionResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "documents": {
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            },
+            "type": "array",
+            "title": "Documents"
+          },
+          "erp_status": {
+            "$ref": "#/components/schemas/ERPStatus",
+            "default": "NOT_STARTED"
+          },
+          "active_run_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Run Id"
+          },
+          "data_source": {
+            "type": "string",
+            "const": "mock",
+            "title": "Data Source",
+            "default": "mock"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "claim_id",
+          "employee",
+          "expense",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ClaimDetail"
+      },
+      "ClaimList": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ClaimSummary"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Offset"
+          },
+          "data_source": {
+            "type": "string",
+            "const": "mock",
+            "title": "Data Source",
+            "default": "mock"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "ClaimList"
+      },
+      "ClaimStatus": {
+        "type": "string",
+        "enum": [
+          "NEW",
+          "AUDITING",
+          "PENDING_HUMAN",
+          "PENDING_ERP",
+          "COMPLETED",
+          "FAILED"
+        ],
+        "title": "ClaimStatus"
+      },
+      "ClaimSummary": {
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Claim Id"
+          },
+          "employee": {
+            "$ref": "#/components/schemas/Employee"
+          },
+          "expense": {
+            "$ref": "#/components/schemas/Expense"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ClaimStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "decision_result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecisionResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "claim_id",
+          "employee",
+          "expense",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ClaimSummary"
+      },
+      "DashboardMetrics": {
+        "properties": {
+          "total_claims": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Claims"
+          },
+          "by_status": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/ClaimStatus"
+            },
+            "type": "object",
+            "title": "By Status"
+          },
+          "by_decision": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/Decision"
+            },
+            "type": "object",
+            "title": "By Decision"
+          },
+          "pending_human": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pending Human"
+          },
+          "pending_erp": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Pending Erp"
+          },
+          "data_source": {
+            "type": "string",
+            "const": "mock",
+            "title": "Data Source",
+            "default": "mock"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "total_claims",
+          "by_status",
+          "by_decision",
+          "pending_human",
+          "pending_erp"
+        ],
+        "title": "DashboardMetrics"
+      },
+      "Decision": {
+        "type": "string",
+        "enum": [
+          "APPROVE",
+          "REJECT",
+          "HUMAN_REVIEW"
+        ],
+        "title": "Decision"
+      },
+      "DecisionResult": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "1.0.0",
+            "title": "Schema Version",
+            "default": "1.0.0"
+          },
+          "claim_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Claim Id"
+          },
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "decision": {
+            "$ref": "#/components/schemas/Decision"
+          },
+          "risk_level": {
+            "$ref": "#/components/schemas/RiskLevel"
+          },
+          "hard_gate_passed": {
+            "type": "boolean",
+            "title": "Hard Gate Passed"
+          },
+          "rule_results": {
+            "items": {
+              "$ref": "#/components/schemas/RuleResult"
+            },
+            "type": "array",
+            "title": "Rule Results"
+          },
+          "policy_evidence": {
+            "items": {
+              "$ref": "#/components/schemas/PolicyEvidence"
+            },
+            "type": "array",
+            "title": "Policy Evidence"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Reason"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence"
+          },
+          "requires_human": {
+            "type": "boolean",
+            "title": "Requires Human"
+          },
+          "decided_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decided At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "claim_id",
+          "run_id",
+          "decision",
+          "risk_level",
+          "hard_gate_passed",
+          "rule_results",
+          "policy_evidence",
+          "reason",
+          "confidence",
+          "requires_human",
+          "decided_at"
+        ],
+        "title": "DecisionResult"
+      },
+      "Document": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Document Id"
+          },
+          "file_name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "File Name"
+          },
+          "content_type": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Content Type"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Sha256"
+          },
+          "parse_status": {
+            "type": "string",
+            "enum": [
+              "UNPARSED",
+              "PARSED",
+              "FAILED"
+            ],
+            "title": "Parse Status",
+            "default": "UNPARSED"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "document_id",
+          "file_name",
+          "content_type",
+          "sha256"
+        ],
+        "title": "Document"
+      },
+      "ERPStatus": {
+        "type": "string",
+        "enum": [
+          "NOT_STARTED",
+          "PENDING",
+          "SUCCEEDED",
+          "FAILED"
+        ],
+        "title": "ERPStatus"
+      },
+      "Employee": {
+        "properties": {
+          "employee_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Employee Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "department": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Department"
+          },
+          "legal_entity": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Legal Entity"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "employee_id",
+          "name",
+          "department",
+          "legal_entity"
+        ],
+        "title": "Employee"
+      },
+      "ErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "details": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Details"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorDetail"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetail"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error",
+          "request_id"
+        ],
+        "title": "ErrorResponse"
+      },
+      "Expense": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "HOTEL",
+              "TRANSPORT",
+              "MEAL",
+              "OTHER"
+            ],
+            "title": "Category"
+          },
+          "city": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "City"
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^\\d{1,10}\\.\\d{2}$",
+            "title": "Amount"
+          },
+          "currency": {
+            "type": "string",
+            "const": "CNY",
+            "title": "Currency",
+            "default": "CNY"
+          },
+          "incurred_on": {
+            "type": "string",
+            "format": "date",
+            "title": "Incurred On"
+          },
+          "nights": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Nights",
+            "default": 1
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "category",
+          "city",
+          "amount",
+          "incurred_on"
+        ],
+        "title": "Expense"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status",
+            "default": "ok"
+          },
+          "service": {
+            "type": "string",
+            "const": "fde-expense-ai-auditor",
+            "title": "Service",
+            "default": "fde-expense-ai-auditor"
+          },
+          "version": {
+            "type": "string",
+            "const": "0.1.0",
+            "title": "Version",
+            "default": "0.1.0"
+          },
+          "milestone": {
+            "type": "string",
+            "const": "M0",
+            "title": "Milestone",
+            "default": "M0"
+          },
+          "data_source": {
+            "type": "string",
+            "const": "mock",
+            "title": "Data Source",
+            "default": "mock"
+          },
+          "database": {
+            "type": "string",
+            "const": "not_checked",
+            "title": "Database",
+            "default": "not_checked"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "HealthResponse"
+      },
+      "HumanReviewRequest": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expected Revision"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "APPROVE",
+              "REJECT"
+            ],
+            "title": "Decision"
+          },
+          "reviewer_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Reviewer Id"
+          },
+          "comment": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Comment"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "run_id",
+          "expected_revision",
+          "decision",
+          "reviewer_id",
+          "comment",
+          "idempotency_key"
+        ],
+        "title": "HumanReviewRequest"
+      },
+      "OperationResponse": {
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Claim Id"
+          },
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ClaimStatus"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Revision"
+          },
+          "decision_result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecisionResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "claim_id",
+          "run_id",
+          "status",
+          "revision",
+          "decision_result"
+        ],
+        "title": "OperationResponse"
+      },
+      "Outcome": {
+        "type": "string",
+        "enum": [
+          "PASS",
+          "FAIL",
+          "UNKNOWN"
+        ],
+        "title": "Outcome"
+      },
+      "PolicyEvidence": {
+        "properties": {
+          "policy_version_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Version Id"
+          },
+          "policy_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Policy Key"
+          },
+          "version": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Version"
+          },
+          "effective_from": {
+            "type": "string",
+            "format": "date",
+            "title": "Effective From"
+          },
+          "effective_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective To"
+          },
+          "chunk_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Chunk Id"
+          },
+          "source_uri": {
+            "type": "string",
+            "title": "Source Uri"
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Quote"
+          },
+          "relevance_score": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relevance Score"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "policy_version_id",
+          "policy_key",
+          "version",
+          "effective_from",
+          "chunk_id",
+          "source_uri",
+          "quote"
+        ],
+        "title": "PolicyEvidence"
+      },
+      "ResumeRequest": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expected Revision"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "run_id",
+          "expected_revision",
+          "idempotency_key"
+        ],
+        "title": "ResumeRequest"
+      },
+      "RiskLevel": {
+        "type": "string",
+        "enum": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "title": "RiskLevel"
+      },
+      "RuleResult": {
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Rule Id"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/Outcome"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/Severity"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "actual": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^\\d{1,10}\\.\\d{2}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^\\d{1,10}\\.\\d{2}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "policy_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Policy Version Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "rule_id",
+          "outcome",
+          "severity",
+          "reason"
+        ],
+        "title": "RuleResult"
+      },
+      "RunMode": {
+        "type": "string",
+        "enum": [
+          "LIVE",
+          "SHADOW"
+        ],
+        "title": "RunMode"
+      },
+      "Severity": {
+        "type": "string",
+        "enum": [
+          "INFO",
+          "REVIEW",
+          "BLOCK"
+        ],
+        "title": "Severity"
+      }
+    }
+  }
+}

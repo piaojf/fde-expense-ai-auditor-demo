@@ -1,0 +1,78 @@
+.hotel-matrix-page {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.hotel-matrix-page .btn {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.hotel-matrix-page .label {
+  display: block;
+  margin: 12px 0 6px;
+}
+.hotel-matrix-page .input,
+.hotel-matrix-page .select {
+  max-width: 100%;
+}
+.hotel-record-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; }
+.hotel-record-toolbar > div { min-width: 160px; }
+.hotel-record-toolbar .hotel-record-search { flex: 1; min-width: 220px; }
+.hotel-record-toolbar label { display: block; margin-bottom: 8px; color: var(--text-2); font-size: 12px; font-weight: 500; }
+.hotel-record-toolbar .input, .hotel-record-toolbar .select { width: 100%; }
+.hotel-record-toolbar .select { height: 34px; padding: 0 10px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--text-1); font: inherit; }
+.hotel-record-toolbar .select:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.hotel-record-toolbar > .btn { min-height: 38px; }
+.hotel-record-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin: 20px 0 12px; color: var(--text-3); font-size: 12px; }
+.hotel-record-table th { height: 42px; }
+.hotel-records .hotel-record-table td { height: auto; padding: 12px; line-height: 1.7; vertical-align: middle; }
+.hotel-record-table .hotel-record-subject { min-width: 240px; max-width: 460px; white-space: normal; overflow-wrap: anywhere; }
+.hotel-record-table strong { font-size: 14px; font-weight: 600; }
+.hotel-record-table small { display: block; margin-top: 4px; color: var(--text-3); font-size: 12px; }
+.hotel-record-table tr.selected td { background: var(--primary-bg); }
+.hotel-record-note { font-size: 12px; color: var(--text-3); line-height: 1.7; margin: 16px 0 0; }
+.hotel-record-empty { padding: 40px 16px; color: var(--text-2); text-align: center; line-height: 1.8; }
+.hotel-record-detail { margin-top: 24px; scroll-margin-top: 24px; }
+.hotel-detail-heading { display: flex; justify-content: space-between; align-items: start; gap: 16px; margin-bottom: 16px; }
+.hotel-detail-heading > div { min-width: 0; }
+.hotel-detail-heading h2 { font-size: 18px; margin: 0 0 8px; }
+.hotel-detail-heading h2:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.hotel-detail-summary { line-height: 1.8; }
+.hotel-record-detail blockquote { margin: 16px 0; padding: 16px; border-left: 3px solid var(--primary-border); background: var(--surface-muted); line-height: 1.8; }
+@media (max-width: 760px) {
+  .hotel-record-toolbar { align-items: stretch; gap: 12px; }
+  .hotel-record-toolbar > div, .hotel-record-toolbar .hotel-record-search { min-width: 0; flex: 1 1 100%; }
+  .hotel-record-table-wrap { overflow: visible; }
+  .hotel-record-table, .hotel-record-table tbody, .hotel-record-table tr { display: block; width: 100%; }
+  .hotel-record-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .hotel-record-table tr { border: 1px solid var(--border); border-radius: var(--radius-sm); margin: 12px 0; overflow: hidden; }
+  .hotel-records .hotel-record-table td { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 8px; height: auto; padding: 8px 12px; white-space: normal; border: 0; text-align: left; }
+  .hotel-record-table td::before { content: attr(data-label); color: var(--text-3); font-size: 12px; font-weight: 400; }
+  .hotel-record-table td > * { grid-column: 2; justify-self: start; }
+  .hotel-record-table .hotel-record-subject { min-width: 0; max-width: none; }
+  .hotel-record-table .record-sequence { width: auto; padding-top: 12px; }
+  .hotel-record-table .badge { white-space: normal; line-height: 1.5; padding-top: 4px; padding-bottom: 4px; }
+  .hotel-detail-heading { flex-wrap: wrap; }
+}
+
+.hotel-matrix-page .submission-form > .invoice-panel { border-top: 0; margin-top: 0; padding-top: 0; }
+.hotel-manual-fields, .hotel-confirmation { border-top: 1px solid var(--border); margin-top: 24px; padding-top: 24px; }
+.hotel-matrix-page .invoice-preview-details { margin: 16px 0; }
+.hotel-matrix-page .invoice-preview-details summary { cursor: pointer; color: var(--text-2); font-size: 13px; padding: 8px 0; }
+.hotel-matrix-page .invoice-preview-details summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+
+.hotel-secondary-management { margin-top: 34px; padding-top: 24px; border-top: 1px solid var(--border); }
+.hotel-secondary-management > h2 { margin: 0 0 7px; font-size: 16px; color: var(--text-2); }
+.hotel-secondary-management > p { margin: 0 0 17px; font-size: 13px; color: var(--text-3); line-height: 1.8; }
+.hotel-secondary-management > details { margin-top: 14px; }
+.hotel-secondary-management > details > summary { cursor: pointer; color: var(--text-2); font-weight: 500; font-size: 14px; }
+.hotel-secondary-management > details > p { line-height: 1.8; font-size: 13px; color: var(--text-2); }
+.hotel-lifecycle-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin-top: 12px; }
+.hotel-lifecycle .input, .hotel-lifecycle .select { width: 100%; font: inherit; font-size: 14px; }
+.hotel-lifecycle .select { min-height: 40px; border: 1px solid var(--border-strong); border-radius: 6px; padding: 8px 10px; background: var(--surface); color: var(--text-1); }
+.hotel-lifecycle textarea { display: block; min-height: 75px; padding: 12px; line-height: 1.7; margin-bottom: 16px; }
+.hotel-management-empty { margin: 20px 0 0; padding: 20px; background: var(--surface-muted); border: 1px solid var(--border); border-radius: 7px; font-size: 14px; line-height: 1.8; }
+.hotel-management-empty p { margin: 5px 0 0; color: var(--text-3); font-size: 13px; }
+.hotel-management-note { color: var(--text-2); font-size: 13px; line-height: 1.8; }
+.hotel-lifecycle-preview { margin-top: 18px; padding: 18px; border: 1px solid var(--primary-border); border-radius: 7px; background: var(--primary-bg); font-size: 14px; line-height: 1.8; }
+@media (max-width: 760px) { .hotel-lifecycle-fields { grid-template-columns: 1fr; } }

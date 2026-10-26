@@ -1,0 +1,168 @@
+{
+  "$defs": {
+    "AdvisoryIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "enum": [
+            "BUSINESS_PURPOSE",
+            "POLICY_APPLICABILITY",
+            "EXCEPTION_REASON",
+            "FACT_POLICY_CONFLICT",
+            "EVIDENCE_SUFFICIENCY",
+            "DUPLICATE_SPLIT_CATEGORY",
+            "AUTHORIZATION",
+            "UNRESOLVED_QUESTIONS"
+          ],
+          "title": "Topic",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "BUSINESS",
+            "POLICY",
+            "EXCEPTION",
+            "HOTEL",
+            "ALLOWANCE",
+            "ENTERTAINMENT",
+            "INVOICE",
+            "AUTHORIZATION",
+            "DUPLICATE"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "policy_ref_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 12,
+          "minItems": 1,
+          "title": "Policy Ref Ids",
+          "type": "array"
+        },
+        "fact_refs": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Fact Refs",
+          "type": "array"
+        },
+        "explanation": {
+          "maxLength": 400,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "finance_check": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Finance Check",
+          "type": "string"
+        }
+      },
+      "required": [
+        "topic",
+        "basis",
+        "severity",
+        "policy_ref_ids",
+        "fact_refs",
+        "explanation",
+        "finance_check"
+      ],
+      "title": "AdvisoryIssue",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "p4b.advisory.1",
+      "default": "p4b.advisory.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "risk_level": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "UNDETERMINED"
+      ],
+      "title": "Risk Level",
+      "type": "string"
+    },
+    "recommendation": {
+      "enum": [
+        "RECOMMEND_APPROVAL",
+        "RECOMMEND_REJECTION",
+        "REQUEST_EVIDENCE",
+        "ESCALATE",
+        "UNDETERMINED"
+      ],
+      "title": "Recommendation",
+      "type": "string"
+    },
+    "issues": {
+      "items": {
+        "$ref": "#/$defs/AdvisoryIssue"
+      },
+      "maxItems": 16,
+      "title": "Issues",
+      "type": "array"
+    },
+    "missing_evidence": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 24,
+      "title": "Missing Evidence",
+      "type": "array"
+    },
+    "policy_ref_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "title": "Policy Ref Ids",
+      "type": "array"
+    },
+    "fact_refs": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Fact Refs",
+      "type": "array"
+    },
+    "requires_human_review": {
+      "const": true,
+      "title": "Requires Human Review",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "risk_level",
+    "recommendation",
+    "issues",
+    "missing_evidence",
+    "policy_ref_ids",
+    "fact_refs",
+    "requires_human_review"
+  ],
+  "title": "AdvisoryOutput",
+  "type": "object"
+}

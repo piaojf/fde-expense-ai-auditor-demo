@@ -1,0 +1,116 @@
+[
+  {
+    "document_id": "DOC-001",
+    "claim_id": "CLM-2026-001",
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "800.00",
+      "currency": "CNY",
+      "incurred_on": "2026-10-01",
+      "nights": 1
+    }
+  },
+  {
+    "document_id": "DOC-002",
+    "claim_id": "CLM-2026-002",
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "500.00",
+      "currency": "CNY",
+      "incurred_on": "2026-10-01",
+      "nights": 1
+    }
+  },
+  {
+    "document_id": "DOC-003",
+    "claim_id": "CLM-2026-003",
+    "expense": {
+      "category": "MEAL",
+      "city": "上海",
+      "amount": "120.00",
+      "currency": "CNY",
+      "incurred_on": "2026-10-01",
+      "nights": 1
+    }
+  },
+  {
+    "document_id": "DOC-M1-001",
+    "claim_id": "CLM-2026-00001",
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "600.00",
+      "currency": "CNY",
+      "incurred_on": "2026-09-20",
+      "nights": 1
+    }
+  },
+  {
+    "document_id": "DOC-M2-004",
+    "claim_id": "CLM-2026-00004",
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "680.00",
+      "currency": "CNY",
+      "incurred_on": "2026-09-23",
+      "nights": 1
+    },
+    "trip_context": {
+      "approved_from": "2026-09-21",
+      "approved_to": "2026-09-22",
+      "stay_from": "2026-09-22",
+      "stay_to": "2026-09-23",
+      "employee_explanation": "9月22日晚返程航班临时取消，因此在机场附近额外住宿一晚。已上传航空公司航班取消通知。",
+      "cancellation_document_id": "DOC-M2-FLIGHT-004"
+    }
+  },
+  {
+    "document_id": "DOC-M2-FLIGHT-004",
+    "claim_id": "CLM-2026-00004",
+    "kind": "FLIGHT_CANCELLATION",
+    "cancelled_on": "2026-09-22",
+    "flight_reference": "MOCK-FLIGHT-004"
+  },
+  {
+    "document_id": "DOC-M2-005",
+    "claim_id": "CLM-2026-00005",
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "680.00",
+      "currency": "CNY",
+      "incurred_on": "2026-09-23",
+      "nights": 1
+    },
+    "trip_context": {
+      "approved_from": "2026-09-21",
+      "approved_to": "2026-09-22",
+      "stay_from": "2026-09-22",
+      "stay_to": "2026-09-23",
+      "employee_explanation": "9月22日晚返程航班临时取消，因此在机场附近额外住宿一晚。已上传航空公司航班取消通知。",
+      "cancellation_document_id": "DOC-M2-FLIGHT-005"
+    }
+  },
+  {
+    "document_id": "DOC-M2-FLIGHT-005",
+    "claim_id": "CLM-2026-00005",
+    "kind": "FLIGHT_CANCELLATION",
+    "cancelled_on": "2026-09-22",
+    "flight_reference": "MOCK-FLIGHT-005"
+  },
+  {
+    "document_id": "DOC-M3-006",
+    "claim_id": "CLM-2026-00006",
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "650.00",
+      "currency": "CNY",
+      "incurred_on": "2026-09-20",
+      "nights": 1
+    }
+  }
+]

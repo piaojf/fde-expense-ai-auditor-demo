@@ -1,0 +1,103 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.env
+.env.*
+!.env.example
+.m0-evidence/
+.m1-evidence/
+.m1-runtime/
+.m2-evidence/
+.m2-runtime/
+.demo-stability-evidence/*
+!.demo-stability-evidence/DIFF_FILE.patch
+!.demo-stability-evidence/MODIFIED_FILE
+!.demo-stability-evidence/VERIFICATION.txt
+!.demo-stability-evidence/ROLLBACK.sh
+!.demo-stability-evidence/COMMANDS.json
+!.demo-stability-evidence/ORIGINAL_HASHES.json
+!.demo-stability-evidence/PROTECTED_HASHES.json
+!.demo-stability-evidence/rollback-result.json
+!.demo-stability-evidence/default-http.json
+!.demo-stability-evidence/browser-e2e.log
+node_modules/
+.next/
+
+# Local migration/runtime artifacts (keep all existing rules above).
+*.pyc
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite*
+*.log
+.workbuddy/
+.m3-runtime/
+.m4a-runtime/
+.m3-evidence/
+.m4a-evidence/
+.m4b-evidence/
+.m4b-runtime/
+.vscode/
+.idea/
+.DS_Store
+screenshots/
+**/browser-screenshots/
+.cache/
+.huggingface/
+model-cache/
+models/cache/
+docker-volumes/
+postgres_data/
+
+# M4B browser verification artifacts (no runtime logs in Git).
+.playwright-cli/
+output/playwright/
+
+# M5A local baseline/regression evidence; committed evaluation result lives in docs.
+output/m5a-local/
+
+# Shadow replay store, reports and baseline evidence are local runtime data.
+output/m5b-local/
+
+# UI-P1 synthetic browser state and local verification logs.
+output/ui-p1/
+
+# UI-P2 attachments, private OCR evidence and local test artifacts.
+output/ui-p2/
+.invoice-runtime/
+
+# UI-P3A controlled policy demo evidence; never version private uploaded policies.
+output/ui-p3a/
+
+# UI-P3B synthetic acceptance runtime and private capability files.
+output/ui-p3b/
+
+# M6 private synthetic runtime, credentials, database URLs and evidence.
+output/m6/
+
+# Enterprise demo credentials, disposable DB URLs and local test evidence.
+output/enterprise/
+# A worktree may reuse the existing dependency directory via a local symlink.
+/apps/web/node_modules
+
+# P4A isolated evidence and reused dependency symlink.
+.venv
+/output/p4a/
+/output/p4a-integration/
+
+# P4B disposable acceptance databases, logs, and local evidence.
+output/p4b/
+
+# P0 runtime bindings, isolated copies and private preservation evidence.
+output/p0/
+
+# Policy-file library validation: private source backups and runtime evidence.
+output/policy-file-library/
+output/
+.public-runtime/

@@ -1,0 +1,54 @@
+name: fde-expense-ai-auditor
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.6-pg17-bookworm
+    mem_limit: 512m
+    cpus: 1.0
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-expense_m4a_demo}
+      POSTGRES_USER: ${POSTGRES_USER:-expense}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Copy .env.example to .env and set POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init/001-vector.sql:/docker-entrypoint-initdb.d/001-vector.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-expense}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-expense_m4a_demo}
+    command: ["python", "-m", "alembic", "upgrade", "head"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      APP_ENV: development
+      DATA_SOURCE: mock
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-expense}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-expense_m4a_demo}
+      CORS_ORIGINS: '["http://localhost:3000"]'
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+volumes:
+  postgres_data:

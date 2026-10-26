@@ -1,0 +1,663 @@
+{
+  "$defs": {
+    "AgentError": {
+      "additionalProperties": false,
+      "properties": {
+        "node": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Node",
+          "type": "string"
+        },
+        "code": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "title": "Retryable",
+          "type": "boolean"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node",
+        "code",
+        "message",
+        "retryable",
+        "occurred_at"
+      ],
+      "title": "AgentError",
+      "type": "object"
+    },
+    "ClaimStatus": {
+      "enum": [
+        "NEW",
+        "AUDITING",
+        "PENDING_HUMAN",
+        "PENDING_ERP",
+        "COMPLETED",
+        "FAILED"
+      ],
+      "title": "ClaimStatus",
+      "type": "string"
+    },
+    "Decision": {
+      "enum": [
+        "APPROVE",
+        "REJECT",
+        "HUMAN_REVIEW"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "Document": {
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Document Id",
+          "type": "string"
+        },
+        "file_name": {
+          "maxLength": 255,
+          "minLength": 1,
+          "title": "File Name",
+          "type": "string"
+        },
+        "content_type": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Content Type",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "parse_status": {
+          "default": "UNPARSED",
+          "enum": [
+            "UNPARSED",
+            "PARSED",
+            "FAILED"
+          ],
+          "title": "Parse Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "document_id",
+        "file_name",
+        "content_type",
+        "sha256"
+      ],
+      "title": "Document",
+      "type": "object"
+    },
+    "ERPStatus": {
+      "enum": [
+        "NOT_STARTED",
+        "PENDING",
+        "SUCCEEDED",
+        "FAILED"
+      ],
+      "title": "ERPStatus",
+      "type": "string"
+    },
+    "Employee": {
+      "additionalProperties": false,
+      "properties": {
+        "employee_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Employee Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "department": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Department",
+          "type": "string"
+        },
+        "legal_entity": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Legal Entity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "employee_id",
+        "name",
+        "department",
+        "legal_entity"
+      ],
+      "title": "Employee",
+      "type": "object"
+    },
+    "Expense": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "enum": [
+            "HOTEL",
+            "TRANSPORT",
+            "MEAL",
+            "OTHER"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "city": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "City",
+          "type": "string"
+        },
+        "amount": {
+          "pattern": "^\\d{1,10}\\.\\d{2}$",
+          "title": "Amount",
+          "type": "string"
+        },
+        "currency": {
+          "const": "CNY",
+          "default": "CNY",
+          "title": "Currency",
+          "type": "string"
+        },
+        "incurred_on": {
+          "format": "date",
+          "title": "Incurred On",
+          "type": "string"
+        },
+        "nights": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Nights",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "category",
+        "city",
+        "amount",
+        "incurred_on"
+      ],
+      "title": "Expense",
+      "type": "object"
+    },
+    "HardGateResult": {
+      "additionalProperties": false,
+      "properties": {
+        "gate_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "outcome": {
+          "$ref": "#/$defs/Outcome"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gate_id",
+        "outcome",
+        "reason"
+      ],
+      "title": "HardGateResult",
+      "type": "object"
+    },
+    "HumanReview": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "enum": [
+            "APPROVE",
+            "REJECT"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "reviewer_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Reviewer Id",
+          "type": "string"
+        },
+        "comment": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Comment",
+          "type": "string"
+        },
+        "reviewed_at": {
+          "format": "date-time",
+          "title": "Reviewed At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision",
+        "reviewer_id",
+        "comment",
+        "reviewed_at"
+      ],
+      "title": "HumanReview",
+      "type": "object"
+    },
+    "LLMAnalysis": {
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        },
+        "anomalies": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Anomalies",
+          "type": "array"
+        },
+        "suggested_risk": {
+          "$ref": "#/$defs/RiskLevel"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "provider": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        }
+      },
+      "required": [
+        "summary",
+        "suggested_risk",
+        "confidence",
+        "provider",
+        "model"
+      ],
+      "title": "LLMAnalysis",
+      "type": "object"
+    },
+    "Outcome": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "UNKNOWN"
+      ],
+      "title": "Outcome",
+      "type": "string"
+    },
+    "PolicyEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "policy_version_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Policy Version Id",
+          "type": "string"
+        },
+        "policy_key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Policy Key",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "effective_from": {
+          "format": "date",
+          "title": "Effective From",
+          "type": "string"
+        },
+        "effective_to": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective To"
+        },
+        "chunk_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Chunk Id",
+          "type": "string"
+        },
+        "source_uri": {
+          "title": "Source Uri",
+          "type": "string"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "relevance_score": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relevance Score"
+        }
+      },
+      "required": [
+        "policy_version_id",
+        "policy_key",
+        "version",
+        "effective_from",
+        "chunk_id",
+        "source_uri",
+        "quote"
+      ],
+      "title": "PolicyEvidence",
+      "type": "object"
+    },
+    "RiskLevel": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ],
+      "title": "RiskLevel",
+      "type": "string"
+    },
+    "RuleResult": {
+      "additionalProperties": false,
+      "properties": {
+        "rule_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "outcome": {
+          "$ref": "#/$defs/Outcome"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "actual": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{1,10}\\.\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actual"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{1,10}\\.\\d{2}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Limit"
+        },
+        "policy_version_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Policy Version Id"
+        }
+      },
+      "required": [
+        "rule_id",
+        "outcome",
+        "severity",
+        "reason"
+      ],
+      "title": "RuleResult",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "LIVE",
+        "SHADOW"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "Severity": {
+      "enum": [
+        "INFO",
+        "REVIEW",
+        "BLOCK"
+      ],
+      "title": "Severity",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "claim_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Claim Id",
+      "type": "string"
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Run Id"
+    },
+    "revision": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "mode": {
+      "$ref": "#/$defs/RunMode",
+      "default": "LIVE"
+    },
+    "status": {
+      "$ref": "#/$defs/ClaimStatus",
+      "default": "NEW"
+    },
+    "employee": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Employee"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "expense": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Expense"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "documents": {
+      "items": {
+        "$ref": "#/$defs/Document"
+      },
+      "title": "Documents",
+      "type": "array"
+    },
+    "erp_context": {
+      "additionalProperties": true,
+      "title": "Erp Context",
+      "type": "object"
+    },
+    "rule_results": {
+      "items": {
+        "$ref": "#/$defs/RuleResult"
+      },
+      "title": "Rule Results",
+      "type": "array"
+    },
+    "hard_gate_results": {
+      "items": {
+        "$ref": "#/$defs/HardGateResult"
+      },
+      "title": "Hard Gate Results",
+      "type": "array"
+    },
+    "policy_evidence": {
+      "items": {
+        "$ref": "#/$defs/PolicyEvidence"
+      },
+      "title": "Policy Evidence",
+      "type": "array"
+    },
+    "llm_analysis": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LLMAnalysis"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "risk_level": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RiskLevel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "decision": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Decision"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "requires_human": {
+      "default": false,
+      "title": "Requires Human",
+      "type": "boolean"
+    },
+    "human_review": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/HumanReview"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "erp_status": {
+      "$ref": "#/$defs/ERPStatus",
+      "default": "NOT_STARTED"
+    },
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/AgentError"
+      },
+      "title": "Errors",
+      "type": "array"
+    },
+    "audit_context": {
+      "additionalProperties": true,
+      "title": "Audit Context",
+      "type": "object"
+    }
+  },
+  "required": [
+    "claim_id"
+  ],
+  "title": "ClaimState",
+  "type": "object"
+}

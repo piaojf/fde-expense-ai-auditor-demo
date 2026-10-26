@@ -1,0 +1,5 @@
+tests/fixtures/invoices/*.pdf binary
+
+# Synthetic policy documents are binary artifacts; preserve verified fixture bytes.
+tests/fixtures/policies/*.pdf binary
+tests/fixtures/policies/*.docx binary

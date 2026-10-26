@@ -1,0 +1,247 @@
+[
+  {
+    "claim_id": "CLM-2026-001",
+    "employee": {
+      "employee_id": "EMP-001",
+      "name": "演示员工甲",
+      "department": "交付",
+      "legal_entity": "DEMO-CN"
+    },
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "800.00",
+      "currency": "CNY",
+      "incurred_on": "2026-10-01",
+      "nights": 1
+    },
+    "status": "NEW",
+    "created_at": "2026-10-02T02:00:00Z",
+    "updated_at": "2026-10-02T02:00:00Z",
+    "decision_result": null,
+    "documents": [
+      {
+        "document_id": "DOC-001",
+        "file_name": "mock-invoice-001.pdf",
+        "content_type": "application/pdf",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "parse_status": "UNPARSED"
+      }
+    ],
+    "erp_status": "NOT_STARTED",
+    "active_run_id": null,
+    "data_source": "mock"
+  },
+  {
+    "claim_id": "CLM-2026-002",
+    "employee": {
+      "employee_id": "EMP-002",
+      "name": "演示员工乙",
+      "department": "交付",
+      "legal_entity": "DEMO-CN"
+    },
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "500.00",
+      "currency": "CNY",
+      "incurred_on": "2026-10-01",
+      "nights": 1
+    },
+    "status": "NEW",
+    "created_at": "2026-10-02T02:00:00Z",
+    "updated_at": "2026-10-02T02:00:00Z",
+    "decision_result": null,
+    "documents": [
+      {
+        "document_id": "DOC-002",
+        "file_name": "mock-invoice-002.pdf",
+        "content_type": "application/pdf",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "parse_status": "UNPARSED"
+      }
+    ],
+    "erp_status": "NOT_STARTED",
+    "active_run_id": null,
+    "data_source": "mock"
+  },
+  {
+    "claim_id": "CLM-2026-003",
+    "employee": {
+      "employee_id": "EMP-003",
+      "name": "演示员工丙",
+      "department": "交付",
+      "legal_entity": "DEMO-CN"
+    },
+    "expense": {
+      "category": "MEAL",
+      "city": "上海",
+      "amount": "120.00",
+      "currency": "CNY",
+      "incurred_on": "2026-10-01",
+      "nights": 1
+    },
+    "status": "NEW",
+    "created_at": "2026-10-02T02:00:00Z",
+    "updated_at": "2026-10-02T02:00:00Z",
+    "decision_result": null,
+    "documents": [
+      {
+        "document_id": "DOC-003",
+        "file_name": "mock-invoice-003.pdf",
+        "content_type": "application/pdf",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "parse_status": "UNPARSED"
+      }
+    ],
+    "erp_status": "NOT_STARTED",
+    "active_run_id": null,
+    "data_source": "mock"
+  },
+  {
+    "claim_id": "CLM-2026-00001",
+    "employee": {
+      "employee_id": "EMP-M1-001",
+      "name": "张伟",
+      "department": "华南销售部",
+      "legal_entity": "DEMO-CN"
+    },
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "600.00",
+      "currency": "CNY",
+      "incurred_on": "2026-09-20",
+      "nights": 1
+    },
+    "status": "NEW",
+    "created_at": "2026-09-20T02:00:00Z",
+    "updated_at": "2026-09-20T02:00:00Z",
+    "decision_result": null,
+    "documents": [
+      {
+        "document_id": "DOC-M1-001",
+        "file_name": "mock-invoice-m1.json",
+        "content_type": "application/json",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "parse_status": "UNPARSED"
+      }
+    ],
+    "erp_status": "NOT_STARTED",
+    "active_run_id": null,
+    "data_source": "mock"
+  },
+  {
+    "claim_id": "CLM-2026-00004",
+    "employee": {
+      "employee_id": "EMP-M2-004",
+      "name": "李娜",
+      "department": "华南市场部",
+      "legal_entity": "DEMO-CN"
+    },
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "680.00",
+      "currency": "CNY",
+      "incurred_on": "2026-09-23",
+      "nights": 1
+    },
+    "status": "NEW",
+    "created_at": "2026-09-23T02:00:00Z",
+    "updated_at": "2026-09-23T02:00:00Z",
+    "decision_result": null,
+    "documents": [
+      {
+        "document_id": "DOC-M2-004",
+        "file_name": "DOC-M2-004.json",
+        "content_type": "application/json",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "parse_status": "UNPARSED"
+      },
+      {
+        "document_id": "DOC-M2-FLIGHT-004",
+        "file_name": "DOC-M2-FLIGHT-004.json",
+        "content_type": "application/json",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "parse_status": "UNPARSED"
+      }
+    ],
+    "erp_status": "NOT_STARTED",
+    "active_run_id": null,
+    "data_source": "mock"
+  },
+  {
+    "claim_id": "CLM-2026-00005",
+    "employee": {
+      "employee_id": "EMP-M2-005",
+      "name": "李娜",
+      "department": "华南市场部",
+      "legal_entity": "DEMO-CN"
+    },
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "680.00",
+      "currency": "CNY",
+      "incurred_on": "2026-09-23",
+      "nights": 1
+    },
+    "status": "NEW",
+    "created_at": "2026-09-23T02:00:00Z",
+    "updated_at": "2026-09-23T02:00:00Z",
+    "decision_result": null,
+    "documents": [
+      {
+        "document_id": "DOC-M2-005",
+        "file_name": "DOC-M2-005.json",
+        "content_type": "application/json",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "parse_status": "UNPARSED"
+      },
+      {
+        "document_id": "DOC-M2-FLIGHT-005",
+        "file_name": "DOC-M2-FLIGHT-005.json",
+        "content_type": "application/json",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "parse_status": "UNPARSED"
+      }
+    ],
+    "erp_status": "NOT_STARTED",
+    "active_run_id": null,
+    "data_source": "mock"
+  },
+  {
+    "claim_id": "CLM-2026-00006",
+    "employee": {
+      "employee_id": "EMP-M3-006",
+      "name": "王强",
+      "department": "华南销售部",
+      "legal_entity": "DEMO-CN"
+    },
+    "expense": {
+      "category": "HOTEL",
+      "city": "深圳",
+      "amount": "650.00",
+      "currency": "CNY",
+      "incurred_on": "2026-09-20",
+      "nights": 1
+    },
+    "status": "NEW",
+    "created_at": "2026-09-20T02:00:00Z",
+    "updated_at": "2026-09-20T02:00:00Z",
+    "decision_result": null,
+    "documents": [
+      {
+        "document_id": "DOC-M3-006",
+        "file_name": "mock-invoice-m3.json",
+        "content_type": "application/json",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "parse_status": "UNPARSED"
+      }
+    ],
+    "erp_status": "NOT_STARTED",
+    "active_run_id": null,
+    "data_source": "mock"
+  }
+]

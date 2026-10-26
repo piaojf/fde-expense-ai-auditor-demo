@@ -1,0 +1,264 @@
+{
+  "$defs": {
+    "CompactFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "enum": [
+            "BUSINESS_PURPOSE",
+            "POLICY_APPLICABILITY",
+            "EXCEPTION_REASON",
+            "FACT_POLICY_CONFLICT",
+            "EVIDENCE_SUFFICIENCY",
+            "DUPLICATE_SPLIT_CATEGORY",
+            "AUTHORIZATION",
+            "UNRESOLVED_QUESTIONS"
+          ],
+          "title": "Topic",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "BUSINESS",
+            "POLICY",
+            "EXCEPTION",
+            "HOTEL",
+            "ALLOWANCE",
+            "ENTERTAINMENT",
+            "INVOICE",
+            "AUTHORIZATION",
+            "DUPLICATE"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "conclusion": {
+          "enum": [
+            "NON_COMPLIANT",
+            "INSUFFICIENT_EVIDENCE",
+            "POLICY_CONFLICT",
+            "UNSUPPORTED"
+          ],
+          "title": "Conclusion",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "factual_basis": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "title": "Factual Basis",
+          "type": "array"
+        },
+        "explanation": {
+          "maxLength": 600,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "required_evidence": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Required Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "topic",
+        "basis",
+        "conclusion",
+        "evidence_refs",
+        "factual_basis",
+        "explanation",
+        "required_evidence"
+      ],
+      "title": "CompactFinding",
+      "type": "object"
+    },
+    "SemanticChecks": {
+      "additionalProperties": false,
+      "properties": {
+        "BUSINESS_PURPOSE": {
+          "enum": [
+            "CLEAR",
+            "ISSUE",
+            "UNKNOWN"
+          ],
+          "title": "Business Purpose",
+          "type": "string"
+        },
+        "POLICY_APPLICABILITY": {
+          "enum": [
+            "CLEAR",
+            "ISSUE",
+            "UNKNOWN"
+          ],
+          "title": "Policy Applicability",
+          "type": "string"
+        },
+        "EXCEPTION_REASON": {
+          "enum": [
+            "CLEAR",
+            "ISSUE",
+            "UNKNOWN"
+          ],
+          "title": "Exception Reason",
+          "type": "string"
+        },
+        "FACT_POLICY_CONFLICT": {
+          "enum": [
+            "CLEAR",
+            "ISSUE",
+            "UNKNOWN"
+          ],
+          "title": "Fact Policy Conflict",
+          "type": "string"
+        },
+        "EVIDENCE_SUFFICIENCY": {
+          "enum": [
+            "CLEAR",
+            "ISSUE",
+            "UNKNOWN"
+          ],
+          "title": "Evidence Sufficiency",
+          "type": "string"
+        },
+        "DUPLICATE_SPLIT_CATEGORY": {
+          "enum": [
+            "CLEAR",
+            "ISSUE",
+            "UNKNOWN"
+          ],
+          "title": "Duplicate Split Category",
+          "type": "string"
+        },
+        "AUTHORIZATION": {
+          "enum": [
+            "CLEAR",
+            "ISSUE",
+            "UNKNOWN"
+          ],
+          "title": "Authorization",
+          "type": "string"
+        },
+        "UNRESOLVED_QUESTIONS": {
+          "enum": [
+            "CLEAR",
+            "ISSUE",
+            "UNKNOWN"
+          ],
+          "title": "Unresolved Questions",
+          "type": "string"
+        }
+      },
+      "required": [
+        "BUSINESS_PURPOSE",
+        "POLICY_APPLICABILITY",
+        "EXCEPTION_REASON",
+        "FACT_POLICY_CONFLICT",
+        "EVIDENCE_SUFFICIENCY",
+        "DUPLICATE_SPLIT_CATEGORY",
+        "AUTHORIZATION",
+        "UNRESOLVED_QUESTIONS"
+      ],
+      "title": "SemanticChecks",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "p4b.semantic.2",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "checks": {
+      "$ref": "#/$defs/SemanticChecks"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/CompactFinding"
+      },
+      "maxItems": 12,
+      "title": "Findings",
+      "type": "array"
+    },
+    "evidence_refs": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "factual_basis": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "title": "Factual Basis",
+      "type": "array"
+    },
+    "exceptions": {
+      "items": {
+        "maxLength": 300,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 4,
+      "title": "Exceptions",
+      "type": "array"
+    },
+    "suggested_risk": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ],
+      "title": "Suggested Risk",
+      "type": "string"
+    },
+    "recommended_action": {
+      "enum": [
+        "CHECK_PASSED",
+        "HUMAN_REVIEW",
+        "REQUEST_EVIDENCE"
+      ],
+      "title": "Recommended Action",
+      "type": "string"
+    },
+    "explanation": {
+      "maxLength": 600,
+      "minLength": 1,
+      "title": "Explanation",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "checks",
+    "findings",
+    "evidence_refs",
+    "factual_basis",
+    "exceptions",
+    "suggested_risk",
+    "recommended_action",
+    "explanation"
+  ],
+  "title": "CompactOutput",
+  "type": "object"
+}
