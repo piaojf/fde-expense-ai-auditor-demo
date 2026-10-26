@@ -31,6 +31,8 @@ def assess_risk(state: ClaimState) -> RiskLevel:
             or state.expense is None
             or any(
                 p.policy_version_id not in expected
+                or (p.effective_from > state.expense.incurred_on
+                    and not state.audit_context.get("hotel_rule_result"))
                 or (p.effective_to is not None and state.expense.incurred_on >= p.effective_to)
                 for p in state.policy_evidence
             )
@@ -55,6 +57,8 @@ def assess_risk(state: ClaimState) -> RiskLevel:
     expected = {r.policy_version_id for r in state.rule_results}
     if expense is None or any(
         p.policy_version_id not in expected
+        or (p.effective_from > expense.incurred_on
+            and not state.audit_context.get("hotel_rule_result"))
         or (p.effective_to is not None and expense.incurred_on >= p.effective_to)
         for p in state.policy_evidence
     ):

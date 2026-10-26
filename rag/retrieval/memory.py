@@ -44,21 +44,16 @@ class PolicyCatalog:
             raise ValueError("Invalid policy effective interval")
 
     def applicable(self, *, legal_entity: str, category: str, city: str, incurred_on: date):
-        def scoped(require_start):
-            return [
-                p
-                for p in self.documents
-                if p.status == "ACTIVE"
-                and p.legal_entity == legal_entity
-                and p.region == city
-                and p.expense_type == category
-                and (not require_start or p.effective_from <= incurred_on)
-                and (p.effective_to is None or incurred_on < p.effective_to)
-            ]
-
-        # The start date only breaks ties; a claim predating it is still governed by
-        # the version whose cutoff has not passed.
-        return scoped(True) or scoped(False)
+        return [
+            policy
+            for policy in self.documents
+            if policy.status == "ACTIVE"
+            and policy.legal_entity == legal_entity
+            and policy.region == city
+            and policy.expense_type == category
+            and policy.effective_from <= incurred_on
+            and (policy.effective_to is None or incurred_on < policy.effective_to)
+        ]
 
     def resolve(self, **filters) -> PolicyDocument | None:
         candidates = self.applicable(**filters)

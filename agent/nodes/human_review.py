@@ -101,6 +101,7 @@ def validate_human_authority(state: ClaimState, catalog, decision="APPROVE"):
         raise ValueError("Deterministic rule recheck failed or policy changed")
     if not state.policy_evidence or any(
         p.policy_version_id != checked.policy_version_id
+        or p.effective_from > state.expense.incurred_on
         or (p.effective_to is not None and state.expense.incurred_on >= p.effective_to)
         for p in state.policy_evidence
     ):

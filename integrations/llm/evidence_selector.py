@@ -36,10 +36,9 @@ def _checked_scope(request):
     trusted = request.facts["trusted"]
     incurred = request.facts["candidate"]["incurred_on"]
     policy = trusted["policy_verification"]
-    # The start date is not an applicability requirement: a claim dated before it is
-    # still covered until the cutoff. Only the cutoff can invalidate evidence here.
     if policy["incurred_on"] != incurred or any(
-        e.effective_to and incurred >= e.effective_to.isoformat()
+        (trusted["expense_type"] != "HOTEL" and incurred < e.effective_from.isoformat())
+        or e.effective_to and incurred >= e.effective_to.isoformat()
         for e in request.evidence
     ):
         raise AttributionError("POLICY_VERSION_REFERENCE_MISMATCH", "evidence_selector")

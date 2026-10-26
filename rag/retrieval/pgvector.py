@@ -70,12 +70,12 @@ def scope_predicates(*, legal_entity, category, city, incurred_on, audit_started
 
 
 def scope_rows(session, *, extra=(), **filters):
-    """Policy versions available to a claim date; the start date only breaks ties.
+    """Resolve ordinary intervals, with an explicit published-hotel fallback.
 
     Strict in-range selection is tried first so an ordinary claim keeps the version
     in force on its own date. Only when no version covers that date exactly is the
-    stated start date ignored: the claim is still governed by the version whose
-    cutoff has not passed. The cutoff itself is never relaxed.
+    stated start date ignored for a published authoritative hotel matrix. Its
+    cutoff is never relaxed; ordinary policies retain their effective interval.
     """
     strict = session.scalars(
         select(PolicyVersion).where(*scope_predicates(**filters), *extra)
@@ -86,6 +86,9 @@ def scope_rows(session, *, extra=(), **filters):
         select(PolicyVersion).where(
             *scope_predicates(**filters, require_effective_start=False,
                               current_authority_only=True),
+            PolicyVersion.category == "HOTEL",
+            PolicyVersion.authority_level >= 100,
+            PolicyVersion.authoritative_rules["rule_type"].as_string() == "HOTEL_LIMIT_MATRIX",
             *extra,
         )
     ).all()
