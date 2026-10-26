@@ -16,3 +16,15 @@ Dependencies used for local verification are external installed environments, ex
 Complete enterprise/P4B private-source reproduction, real model/retrieval quality and production acceptance are outside the public snapshot scope.
 
 No project-wide open-source license is granted. Public visibility permits inspection of this code snapshot; dependency licenses remain separate.
+
+## CI and documentation follow-up, 2026-10-26
+
+The report above is the original publication baseline, not an assertion about later commits. The CI follow-up adds runner tests and browser/dependency entry points without modifying the business workflow.
+
+- Local public profile on the isolated public branch: **918 passed, 110 skipped, 776 deselected**; total collection 1804. Dependencies were reused from an external installed environment. No claim of a new independent fresh-clone file-access guard is made for this follow-up.
+- New runner safety tests: 4 passed. Frontend tests: 14 passed. Typecheck, production build, Ruff, `pip check`, Actionlint and relative documentation links passed.
+- Local npm audit could not run because the configured mirror does not implement the advisory endpoint. No local registry/proxy/network configuration was changed. The GitHub-hosted frontend check executes `npm audit --audit-level=high` as a required command.
+- GitHub-hosted verification is recorded on [public PR #1](https://github.com/piaojf/fde-expense-ai-auditor-demo/pull/1) and its linked Actions runs. Use the check results for the exact current commit, not the original snapshot counts. The real Chrome job exercises the synthetic basic Mock backend without API interception; it does not verify enterprise/P4B or real-provider behavior.
+- The manual release workflow is statically checked; no version tag, GitHub Release or production deployment is created by this follow-up. Its actual publication path remains unexercised until a maintainer chooses a version and dispatches it.
+
+The active recording services, business data, private policy originals and provider budget are outside this change.

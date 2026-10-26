@@ -31,7 +31,7 @@ The `Release` workflow is manually dispatched from `main`. It does not create a 
 2. From a clean, up-to-date public checkout, create and push an annotated `vX.Y.Z` tag at the current `main` commit. Replace `vX.Y.Z` with the version you actually choose; do not move an existing release tag.
 3. In **Actions → Release → Run workflow**, select `main` and enter that existing tag.
 4. The workflow rejects malformed tags, absent tags, non-main dispatches and tags not pointing to the dispatch commit and fetched `origin/main`. It then reruns the complete reusable CI profile for that exact SHA.
-5. Only after successful verification, a separate job with `contents: write` creates the GitHub Release, attaches tracked-source and basic-frontend `.tar.gz` files plus `SHA256SUMS`, and uses [release notes](release-notes.md). It refuses to invent a missing tag. An already published release fails rather than silently overwriting assets.
+5. Only after successful verification, a separate job with `contents: write` rechecks the remote tag's commit and creates the GitHub Release, attaches tracked-source and basic-frontend `.tar.gz` files plus `SHA256SUMS`, and uses [release notes](release-notes.md). It refuses a moved or missing tag. An already published release fails rather than silently overwriting assets.
 
 The frontend archive is not a standalone application. Serve it with the Python backend on `http://127.0.0.1:8000`; it is built for basic mode. Both archives exclude runtime databases and untracked files because source packaging uses `git archive`. Installation still requires the documented runtimes and locked dependencies. No release is created merely by adding this workflow.
 

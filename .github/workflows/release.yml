@@ -90,5 +90,6 @@ jobs:
           TAG: ${{ inputs.tag }}
           VERIFIED_SHA: ${{ needs.resolve.outputs.sha }}
         run: |
+          test "$(gh api "repos/$GITHUB_REPOSITORY/commits/$TAG" --jq .sha)" = "$VERIFIED_SHA"
           gh release create "$TAG" release/* --verify-tag --target "$VERIFIED_SHA" \
             --title "Public demo $TAG" --notes-file docs/release-notes.md
