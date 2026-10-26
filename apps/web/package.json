@@ -12,12 +12,12 @@
     "test:e2e": "node scripts/e2e-real-api.mjs"
   },
   "dependencies": {
-    "react": "^18.3.1",
+    "react": "^19.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "7.18.4"
   },
   "devDependencies": {
-    "@types/react": "^18.3.10",
+    "@types/react": "^19.3.0",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.2",
     "typescript": "~5.6.2",
