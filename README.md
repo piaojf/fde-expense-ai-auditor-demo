@@ -1,8 +1,8 @@
-# FDE Expense AI Auditor
+# 智能ai财务审批系统
 
 [![CI](https://github.com/piaojf/fde-expense-ai-auditor-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/piaojf/fde-expense-ai-auditor-demo/actions/workflows/ci.yml)
 
-企业报销 AI 工作流面试项目：员工申报、票据 OCR、制度证据、确定性金额规则、AI 建议、财务决定与审计记录。
+企业财务审批工作流演示项目：员工申报、票据 OCR、制度证据、确定性金额规则、AI 建议、财务决定与审计记录。
 
 AI 提供建议，财务保留审批权。超限、证据缺失和版本冲突分别处理，模型输出不能直接授予付款权限。ERP 演示使用本地 Mock。
 
@@ -116,6 +116,8 @@ npm run typecheck --prefix apps/web
 npm test --prefix apps/web
 npm run build --prefix apps/web
 ```
+
+本次项目审查与待办见 [项目审查报告](docs/project-review-2026-10-27.md)。
 
 测试范围见 [TESTING.md](TESTING.md)，发布快照的历史本地结果见 [VERIFICATION.md](VERIFICATION.md)，最新提交以 [Actions 实际运行](https://github.com/piaojf/fde-expense-ai-auditor-demo/actions/workflows/ci.yml)为准。缺少 OCR 或一次性 PostgreSQL 时会明确跳过相应测试；私有素材测试的排除项不计为通过。默认测试不调用付费模型。
 

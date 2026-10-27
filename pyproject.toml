@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fde-expense-ai-auditor"
 version = "0.1.0"
-description = "Policy-first enterprise expense auditing agent — M0 foundation"
+description = "智能ai财务审批系统 — AI advice with human finance approval"
 requires-python = ">=3.12,<3.14"
 dependencies = [
   "fastapi>=0.115,<1",

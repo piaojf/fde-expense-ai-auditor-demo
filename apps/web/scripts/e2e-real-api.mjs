@@ -35,6 +35,10 @@ async function waitStatus(status) {
 }
 try {
   await page.goto(WEB, { waitUntil: 'networkidle' });
+  assert.equal(await page.title(), '智能ai财务审批系统');
+  assert.equal(await page.locator('.logo-title').innerText(), '智能ai财务审批系统');
+  assert.equal(await page.locator('.sidebar').evaluate(el => el.scrollWidth <= el.clientWidth), true,
+    'Project branding must fit the sidebar');
   await page.screenshot({ path: `${OUT}/01-dashboard.png`, fullPage: true });
   const before = await detail();
   assert.equal(before.status, 'NEW', 'Start a fresh public Mock generation');

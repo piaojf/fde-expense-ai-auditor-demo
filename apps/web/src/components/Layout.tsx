@@ -76,8 +76,8 @@ export default function Layout({ title, children }: { title: string; children: R
             <NavIcon name="shield" size={18} color="#ffffff" />
           </div>
           <div>
-            <div className="logo-title">费控 AI 审核</div>
-            <div className="logo-sub">FDE Expense AI Auditor</div>
+            <div className="logo-title">智能ai财务审批系统</div>
+            <div className="logo-sub">AI 建议 · 财务决策</div>
           </div>
         </div>
         <nav className="sidebar-nav">

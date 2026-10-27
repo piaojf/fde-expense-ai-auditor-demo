@@ -68,7 +68,7 @@ export default function Login() {
   return <main className="portal-login">
     <div className="portal-login-shell">
       <section className="portal-login-intro" aria-labelledby="login-headline">
-        <div className="portal-login-brand"><span className="portal-brand-mark"><Shield /></span><span>费控 AI 审核<small>ENTERPRISE EXPENSE WORKSPACE</small></span></div>
+        <div className="portal-login-brand"><span className="portal-brand-mark"><Shield /></span><span>智能ai财务审批系统<small>AI FINANCIAL APPROVAL SYSTEM</small></span></div>
         <div className="portal-login-story"><span className="portal-eyebrow"><i />让每一笔报销，清晰可循</span>
           <h1 id="login-headline">报销有进度，<br />审核<span>有依据。</span></h1>
           <p>从员工提交到财务审核，<br className="portal-intro-break" />让制度、票据与每一次决定有据可查。</p>

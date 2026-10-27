@@ -92,4 +92,4 @@ jobs:
         run: |
           test "$(gh api "repos/$GITHUB_REPOSITORY/commits/$TAG" --jq .sha)" = "$VERIFIED_SHA"
           gh release create "$TAG" release/* --verify-tag --target "$VERIFIED_SHA" \
-            --title "Public demo $TAG" --notes-file docs/release-notes.md
+            --title "智能ai财务审批系统 $TAG" --notes-file docs/release-notes.md

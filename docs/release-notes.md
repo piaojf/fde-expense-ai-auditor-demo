@@ -1,4 +1,4 @@
-# Public expense-auditor demo
+# 智能ai财务审批系统
 
 This release packages a public code snapshot and a basic-mode frontend build. The supported reproduction path uses synthetic claims, a Mock model and a local Mock ERP. AI advice remains distinct from the human finance decision.
 
@@ -14,4 +14,4 @@ The release workflow reruns the public Python, frontend and synthetic browser pr
 
 Private policy originals, historical model responses, credentials, runtime databases and provider budgets are not distributed. Full enterprise hotel/P4B reproduction still requires excluded originals and their immutable source bindings; synthetic fixtures do not substitute for them. Real model quality, semantic retrieval, real ERP and production deployment are not certified by this release. The repository currently grants no open-source license; dependency licenses remain their own.
 
-See the packaged README, TESTING.md and docs/ci-cd.md for setup, limitations and verification instructions. Video and page screenshots are not included in this release template.
+See the packaged README, TESTING.md and docs/ci-cd.md for setup, limitations and verification instructions. Screenshots tracked under docs/images are included as historical UI examples; they do not establish enterprise-workflow or real-provider acceptance. Videos are not distributed.
