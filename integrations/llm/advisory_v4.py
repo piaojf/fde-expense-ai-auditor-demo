@@ -12,6 +12,18 @@ from rag.retrieval.compliance_context import permits_basis
 
 PROTOCOL = "p4b.advisory.4"
 
+_VERIFIED_ASSERTION = (
+    r"已核实住宿事实|住宿事实已核实|发票已验真|已确认无重复报销|事前审批已核实|已入账|已付款"
+)
+_VERIFICATION_SUBJECT = rf"(?:{_VERIFIED_ASSERTION}|住宿真实性|发票验真)"
+_VERIFICATION_DISCLAIMER = re.compile(
+    r"(?:^|[。！？!?；;\n])\s*"
+    r"(?:本建议|本次建议|本次审核建议|上述建议|本次分析|上述分析|金额比较)?"
+    r"(?:并)?(?:不构成|不代表|不意味着)"
+    rf"{_VERIFICATION_SUBJECT}(?:(?:、|或|及|和|以及|与){_VERIFICATION_SUBJECT})*"
+    r"的(?:结论|证明)(?=[。！？!?；;，,\n]|$)"
+)
+
 
 def current_facts(request):
     trusted = request.facts["trusted"]
@@ -174,10 +186,13 @@ def validate_advisory_v4(output, request):
                 classification="INFO" if issue.severity == "LOW" else "WARNING",
                 resolution="NOT_APPLICABLE", rule_refs=[],
             ))
-    text = " ".join([output.summary, *(i.explanation for i in output.issues),
-                     *(i.finance_check for i in output.issues)])
-    if re.search(r"已核实住宿事实|住宿事实已核实|发票已验真|已确认无重复报销|"
-                 r"事前审批已核实|已入账|已付款", text):
+    # Exempt only complete, explicitly negated disclaimers. No arbitrary text
+    # may sit between the negation and its enumerated subjects; trailing claims
+    # and double negatives must still fail. Never join fields across this check.
+    texts = [output.summary, *(i.explanation for i in output.issues),
+             *(i.finance_check for i in output.issues)]
+    if any(re.search(_VERIFIED_ASSERTION, _VERIFICATION_DISCLAIMER.sub("", text))
+           for text in texts):
         errors.append(dict(code="UNSUPPORTED_VERIFIED_ASSERTION", field="summary"))
     validate_budget_claim(output.summary, output.fact_refs, request, "summary")
     amount = request.facts.get("declared_amount_check", {}).get("decision")
