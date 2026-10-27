@@ -93,7 +93,7 @@ class EnterpriseBoundary:
 
 def create_enterprise_app(settings, repo, service, invoice_app, policy_app, publication_app):
     app = FastAPI(
-        title="Enterprise Expense Portal",
+        title="智能ai财务审批系统 · 企业工作区",
         version="1.5.0",
         docs_url=None,
         redoc_url=None,

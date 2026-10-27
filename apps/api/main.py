@@ -120,9 +120,10 @@ def create_app(
                 repo.close()
 
     app = FastAPI(
-        title="FDE Expense AI Auditor",
+        title="智能ai财务审批系统",
         version="0.1.0",
-        description="M0 read-only mock foundation. Audit operations return 501.",
+        description=("Policy-guided AI advice and human finance approval; "
+                     "public loopback Mock demo."),
         lifespan=lifespan,
     )
     app.state.repository = repo

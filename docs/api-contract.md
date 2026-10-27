@@ -1,6 +1,8 @@
 # API Contract — v1.0.0 (M0 冻结)
 
 本文件是后端与 WorkBuddy 前端的 Source of Truth。所有路由没有 /api 前缀。
+
+> 阶段说明：本文保留 M0 初始行为记录；其中“只读 / 写入返回 501”不描述当前 M1/M2 及以后的实现。当前基础 Mock 支持审核、人工复核和恢复处理。2026-10-27 项目改名仅更新 OpenAPI 的展示标题与说明；下列路径、DTO、状态码声明和枚举未改变。
 本地 Base URL: http://localhost:8000。Swagger: /docs；机器协议: /openapi.json。
 新增或修改字段、状态码、枚举：**先变更本文件，随后变更 Schema、测试和代码**。
 
