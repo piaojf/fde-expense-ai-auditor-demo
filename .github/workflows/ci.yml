@@ -114,6 +114,17 @@ jobs:
           node-version: '24'
           cache: npm
           cache-dependency-path: apps/web/package-lock.json
+      - name: Install Chinese fonts for browser evidence
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y fonts-noto-cjk
+          python - <<'PY'
+          import subprocess
+          family = subprocess.check_output(
+              ["fc-match", "--format=%{family}", "Noto Sans CJK SC"], text=True
+          )
+          assert "Noto Sans CJK SC" in family, family
+          PY
       - name: Install locked application dependencies
         run: |
           python -m pip install -r requirements.lock
